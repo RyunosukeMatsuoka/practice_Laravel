@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Edit Article | ')
+@section('title', 'New Article | ')
 @section('content')
 <div class="editor-page">
     <div class="container page">
@@ -8,15 +8,14 @@
             <ul class="error-messages">
             </ul>
 
-            <form method="POST" action=" {{route('update')}} ">
+            <form method="POST" action=" {{route('store')}} ">
             @csrf
-            <input type="hidden" name="id" value="{{ $article->id }}"/>
             <fieldset>
                 <fieldset class="form-group">
-                    <input type="text" class="form-control form-control-lg" placeholder="Article Title" name="title" value="{{ $article->title }}"/>
+                    <input type="text" class="form-control form-control-lg" placeholder="Article Title" name="title"/>
                 </fieldset>
                 <fieldset class="form-group">
-                    <input type="text" class="form-control" placeholder="What's this article about?" name="outline" value="{{ $article->outline }}"/>
+                    <input type="text" class="form-control" placeholder="What's this article about?" name="outline"/>
                 </fieldset>
                 <fieldset class="form-group">
                     <textarea
@@ -24,7 +23,7 @@
                         rows="8"
                         placeholder="Write your article (in markdown)"
                         name="content"
-                    >{{ $article->content }}</textarea>
+                    ></textarea>
                 </fieldset>
                 <fieldset class="form-group">
                     <input type="text" class="form-control" placeholder="Enter tags" />
@@ -33,7 +32,7 @@
                     </div>
                 </fieldset>
                 <button type="submit" class="btn btn-lg pull-xs-right btn-primary">
-                Edit Article
+                Publish Article
                 </button>
             </fieldset>
             </form>
