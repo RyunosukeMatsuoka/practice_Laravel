@@ -31,6 +31,32 @@ class ConduitController extends Controller
     }
 
     /**
+     * タグごとに記事を表示
+     * @param int $id
+     * @return view
+     */
+    public function showSortList($id)
+    {
+        $tag = Tag::find($id);
+        $tag_articles = Article_tag::where('tag_id', $tag->id)->get();
+        $article_ids = $tag_articles->pluck('article_id')->toArray();
+        $articles = Article::whereIn('id', $article_ids)->orderBy('created_at', 'desc')->paginate(25);
+
+        $users = User::all();
+        $article_tags = Article_tag::all();
+        $tags = Tag::all();
+
+        return view('conduit.home-tag', [
+                'articles' => $articles,
+                'article_tags' => $article_tags,
+                'tag' => $tag,
+                'tags' => $tags,
+                'users' => $users,
+            ]
+        );
+    }
+
+    /**
      * 記事詳細を表示
      * @param int $id
      * @return view

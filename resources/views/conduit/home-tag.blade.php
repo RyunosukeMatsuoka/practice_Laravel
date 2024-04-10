@@ -18,11 +18,11 @@
                 <a class="nav-link" href="">Your Feed</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link active" href="/">Global Feed</a>
+                <a class="nav-link" href="/">Global Feed</a>
                 </li>
-                <!-- <li class="nav-item tags">
-                <a class="nav-link" href=""># $tag->name </a>
-                </li> -->
+                <li class="nav-item tags">
+                <a class="nav-link active" href="">#{{ $tag->name }}</a>
+                </li>
             </ul>
             </div>
             @foreach($articles as $article)
