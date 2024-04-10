@@ -58,6 +58,7 @@ class ConduitController extends Controller
 
     /**
      * 記事を登録する
+     * @param object $request
      * @return view
      */
     public function exeStore(Request $request)
