@@ -48,12 +48,12 @@ class ConduitController extends Controller
     }
 
     /**
-     * 記事編集画面を表示
+     * 記事作成画面を表示
      * @return view
      */
-    public function showEditor()
+    public function showCreate()
     {
-        return view('conduit.editor');
+        return view('conduit.create');
     }
 
     /**
@@ -67,6 +67,42 @@ class ConduitController extends Controller
         // 認証認可で修正
         $inputs['user_id'] = 4;
         Article::create($inputs);
+
+        return redirect(route('articles'));
+    }
+
+    /**
+     * 記事編集画面を表示
+     * @param int $id
+     * @return view
+     */
+    public function showEditor($id)
+    {
+        $article = Article::find($id);
+        $users = User::all();
+
+        return view('conduit.editor', [
+                'article' => $article,
+                'users' => $users,
+            ]
+        );
+    }
+
+    /**
+     * 記事を更新する
+     * @param object $request
+     * @return view
+     */
+    public function exeUpdate(Request $request)
+    {
+        $inputs = $request->all();
+        $article = Article::find($inputs['id']);
+        
+        $article->title = $inputs['title'];
+        $article->outline = $inputs['outline'];
+        $article->content = $inputs['content'];
+
+        $article->save();
 
         return redirect(route('articles'));
     }
