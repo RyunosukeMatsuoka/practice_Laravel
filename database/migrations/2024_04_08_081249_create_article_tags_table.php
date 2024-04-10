@@ -13,6 +13,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('article_tags')) {
             Schema::create('article_tags', function (Blueprint $table) {
+                $table->id();
                 $table->foreignId('article_id')->constrained('articles')->cascadeOnDelete();;
                 $table->foreignId('tag_id')->constrained('tags')->cascadeOnDelete();;
             });
