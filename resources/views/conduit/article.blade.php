@@ -1,20 +1,25 @@
 @extends('layout')
 @section('title', 'Article | ')
 @section('content')
+@foreach ($users as $user)
+    @if($article->user_id === $user->id)
+        @php $articleUser = $user; @endphp
+    @endif
+@endforeach
 <div class="article-page">
     <div class="banner">
         <div class="container">
-        <h1>How to build webapps that scale</h1>
+        <h1>{{ $article->title }}</h1>
 
         <div class="article-meta">
             <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-            <a href="/profile/eric-simons" class="author">Eric Simons</a>
-            <span class="date">January 20th</span>
+                    <a href="/profile/eric-simons" class="author"> {{ $articleUser->name }} </a>
+            <span class="date"> {{ $article->created_at }} </span>
             </div>
             <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-            &nbsp; Follow Eric Simons <span class="counter">(10)</span>
+                    &nbsp; Follow {{ $articleUser->name }} <span class="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
             <button class="btn btn-sm btn-outline-primary">
@@ -35,10 +40,8 @@
         <div class="row article-content">
         <div class="col-md-12">
             <p>
-            Web development technologies have evolved at an incredible clip over the past few years.
+                {{ $article->content }}
             </p>
-            <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-            <p>It's a great solution for learning how other frameworks work.</p>
             <ul class="tag-list">
             <li class="tag-default tag-pill tag-outline">realworld</li>
             <li class="tag-default tag-pill tag-outline">implementations</li>
@@ -52,13 +55,13 @@
         <div class="article-meta">
             <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-            <a href="" class="author">Eric Simons</a>
-            <span class="date">January 20th</span>
+            <a href="" class="author"> {{ $articleUser->name }} </a>
+            <span class="date">$article->created_at</span>
             </div>
 
             <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-            &nbsp; Follow Eric Simons
+            &nbsp; Follow {{ $articleUser->name }}
             </button>
             &nbsp;
             <button class="btn btn-sm btn-outline-primary">

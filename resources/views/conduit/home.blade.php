@@ -22,21 +22,25 @@
                 </li>
             </ul>
             </div>
-
+            @foreach($articles as $article)
             <div class="article-preview">
             <div class="article-meta">
                 <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
                 <div class="info">
-                <a href="/profile/eric-simons" class="author">Eric Simons</a>
-                <span class="date">January 20th</span>
+                @foreach($users as $user)
+                    @if($article->user_id === $user->id)
+                    <a href="/profile/{{ $user->id }}" class="author">{{ $user->name }}</a>
+                    @endif
+                @endforeach
+                <span class="date">{{ $article->created_at }}</span>
                 </div>
                 <button class="btn btn-outline-primary btn-sm pull-xs-right">
                 <i class="ion-heart"></i> 29
                 </button>
             </div>
-            <a href="/article/how-to-build-webapps-that-scale" class="preview-link">
-                <h1>How to build webapps that scale</h1>
-                <p>This is the description for the post.</p>
+            <a href="/article/{{ $article->id }}" class="preview-link">
+                <h1>{{ $article->title }}</h1>
+                <p>{{ $article->outline }}</p>
                 <span>Read more...</span>
                 <ul class="tag-list">
                 <li class="tag-default tag-pill tag-outline">realworld</li>
@@ -44,8 +48,8 @@
                 </ul>
             </a>
             </div>
-
-            <div class="article-preview">
+            @endforeach
+            <!-- <div class="article-preview">
             <div class="article-meta">
                 <a href="/profile/albert-pai"><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
                 <div class="info">
@@ -65,7 +69,7 @@
                 <li class="tag-default tag-pill tag-outline">implementations</li>
                 </ul>
             </a>
-            </div>
+            </div> -->
 
             <ul class="pagination">
             <li class="page-item active">

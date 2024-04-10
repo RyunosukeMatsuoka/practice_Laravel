@@ -3,12 +3,10 @@
 use App\Http\Controllers\ConduitController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ConduitController::class, 'showList']);
+Route::get('/', [ConduitController::class, 'showList'])->name('articles');
 
-Route::get('/article', function () {
-    return view('conduit.article');
-});
+Route::get('/editor', [ConduitController::class, 'showEditor']);
 
-Route::get('/editor', function () {
-    return view('conduit.editor');
-});
+Route::post('/editor/store', [ConduitController::class, 'exeStore'])->name('store');
+
+Route::get('/article/{id}', [ConduitController::class, 'showDetail'])->name('detail');
