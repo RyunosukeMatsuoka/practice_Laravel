@@ -43,6 +43,7 @@
                 <p>{{ $article->outline }}</p>
                 <span>Read more...</span>
                 <ul class="tag-list">
+                    <!-- タグと記事を紐づけて表示する -->
                 <li class="tag-default tag-pill tag-outline">realworld</li>
                 <li class="tag-default tag-pill tag-outline">implementations</li>
                 </ul>
