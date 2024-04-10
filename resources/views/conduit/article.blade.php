@@ -1,11 +1,6 @@
 @extends('layout')
 @section('title', 'Article | ')
 @section('content')
-@foreach ($users as $user)
-    @if($article->user_id === $user->id)
-        @php $articleUser = $user; @endphp
-    @endif
-@endforeach
 <form method="POST" action="{{ route('delete', $article->id) }}">
 @csrf
 <div class="article-page">
@@ -16,12 +11,12 @@
         <div class="article-meta">
             <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-                    <a href="/profile/eric-simons" class="author"> {{ $articleUser->name }} </a>
+                    <a href="/profile/eric-simons" class="author"> {{ $user->name }} </a>
             <span class="date"> {{ $article->created_at }} </span>
             </div>
             <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-                    &nbsp; Follow {{ $articleUser->name }} <span class="counter">(10)</span>
+                    &nbsp; Follow {{ $user->name }} <span class="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
             <button class="btn btn-sm btn-outline-primary">
@@ -45,9 +40,9 @@
                 {{ $article->content }}
             </p>
             <ul class="tag-list">
-            <!-- タグと記事を紐づけて表示する -->
-            <li class="tag-default tag-pill tag-outline">realworld</li>
-            <li class="tag-default tag-pill tag-outline">implementations</li>
+                @foreach ($tags as $tag)
+                    <li class="tag-default tag-pill tag-outline">{{ $tag->name }}</li>
+                @endforeach
             </ul>
         </div>
         </div>
@@ -58,13 +53,13 @@
         <div class="article-meta">
             <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-            <a href="" class="author"> {{ $articleUser->name }} </a>
+            <a href="" class="author"> {{ $user->name }} </a>
             <span class="date">$article->created_at</span>
             </div>
 
             <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-            &nbsp; Follow {{ $articleUser->name }}
+            &nbsp; Follow {{ $user->name }}
             </button>
             &nbsp;
             <button class="btn btn-sm btn-outline-primary">

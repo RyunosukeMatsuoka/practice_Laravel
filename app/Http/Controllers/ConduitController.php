@@ -38,11 +38,15 @@ class ConduitController extends Controller
     public function showDetail($id)
     {
         $article = Article::find($id);
-        $users = User::all();
+        $article_tags = Article_tag::where('article_id', $article->id)->get();
+        $tag_ids = $article_tags->pluck('tag_id')->toArray();
+        $tags = Tag::whereIn('id', $tag_ids)->get();
+        $user = User::where('id', $article->user_id)->first();
 
         return view('conduit.article', [
                 'article' => $article,
-                'users' => $users,
+                'tags' => $tags,
+                'user' => $user,
             ]
         );
     }

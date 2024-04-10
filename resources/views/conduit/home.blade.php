@@ -43,10 +43,20 @@
                 <p>{{ $article->outline }}</p>
                 <span>Read more...</span>
                 <ul class="tag-list">
-                    <!-- タグと記事を紐づけて表示する -->
-                <li class="tag-default tag-pill tag-outline">realworld</li>
-                <li class="tag-default tag-pill tag-outline">implementations</li>
+                @foreach ($article_tags as $article_tag)
+                    @if ($article_tag->article_id === $article->id)
+                        @php $stockTags[] = $article_tag->tag_id; @endphp
+                    @endif
+                @endforeach
+                @foreach ($stockTags as $stockTag)
+                    @foreach ($tags as $tag)
+                        @if ($stockTag === $tag->id)
+                            <li class="tag-default tag-pill tag-outline">{{ $tag->name }}</li>
+                        @endif
+                    @endforeach
+                @endforeach
                 </ul>
+                @php $stockTags = []; @endphp
             </a>
             </div>
             @endforeach
@@ -59,14 +69,9 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-                <a href="" class="tag-pill tag-default">programming</a>
-                <a href="" class="tag-pill tag-default">javascript</a>
-                <a href="" class="tag-pill tag-default">emberjs</a>
-                <a href="" class="tag-pill tag-default">angularjs</a>
-                <a href="" class="tag-pill tag-default">react</a>
-                <a href="" class="tag-pill tag-default">mean</a>
-                <a href="" class="tag-pill tag-default">node</a>
-                <a href="" class="tag-pill tag-default">rails</a>
+                @foreach ($tags as $tag)
+                <a href="" class="tag-pill tag-default">{{ $tag->name }}</a>
+                @endforeach
             </div>
             </div>
         </div>
