@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ConduitController::class, 'showList'])->name('articles');
 
-Route::get('/{id}', [ConduitController::class, 'showSortList'])->name('sortArticles');
+Route::get('tag/{id}', [ConduitController::class, 'showSortList'])->name('sortArticles');
 
 Route::get('/create', [ConduitController::class, 'showCreate'])->name('create');
 

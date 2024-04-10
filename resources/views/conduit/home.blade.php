@@ -73,7 +73,7 @@
 
             <div class="tag-list">
                 @foreach ($tags as $tag)
-                <a href="{{ $tag->id }}" class="tag-pill tag-default">{{ $tag->name }}</a>
+                <a href="/tag/{{ $tag->id }}" class="tag-pill tag-default">{{ $tag->name }}</a>
                 @endforeach
             </div>
             </div>
