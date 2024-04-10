@@ -2,9 +2,9 @@
 @section('title', 'Article | ')
 @section('content')
 @foreach ($users as $user)
-@if($article->user_id === $user->id)
-@php $articleUser = $user; @endphp
-@endif
+    @if($article->user_id === $user->id)
+        @php $articleUser = $user; @endphp
+    @endif
 @endforeach
 <form method="POST" action="{{ route('delete', $article->id) }}">
 @csrf
@@ -87,12 +87,12 @@
                 <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
             </div>
             <div class="card-footer">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+                <!-- <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" /> -->
                 <button class="btn btn-sm btn-primary">Post Comment</button>
             </div>
             </form>
 
-            <div class="card">
+            <!-- <div class="card">
             <div class="card-block">
                 <p class="card-text">
                 With supporting text below as a natural lead-in to additional content.
@@ -105,25 +105,6 @@
                 &nbsp;
                 <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
                 <span class="date-posted">Dec 29th</span>
-            </div>
-            </div>
-
-            <div class="card">
-            <div class="card-block">
-                <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
-                </p>
-            </div>
-            <div class="card-footer">
-                <a href="/profile/author" class="comment-author">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-                </a>
-                &nbsp;
-                <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
-                <span class="date-posted">Dec 29th</span>
-                <span class="mod-options">
-                <i class="ion-trash-a"></i>
-                </span>
             </div>
             </div>
         </div>

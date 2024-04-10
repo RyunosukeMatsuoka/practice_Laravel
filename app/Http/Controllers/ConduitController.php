@@ -16,7 +16,7 @@ class ConduitController extends Controller
      */
     public function showList()
     {
-        $articles = Article::all();
+        $articles = Article::orderBy('created_at', 'desc')->paginate(25);
         $article_tags = Article_tag::all();
         $tags = Tag::all();
         $users = User::all();
