@@ -2,10 +2,12 @@
 @section('title', 'Article | ')
 @section('content')
 @foreach ($users as $user)
-    @if($article->user_id === $user->id)
-        @php $articleUser = $user; @endphp
-    @endif
+@if($article->user_id === $user->id)
+@php $articleUser = $user; @endphp
+@endif
 @endforeach
+<form method="POST" action="{{ route('delete', $article->id) }}">
+@csrf
 <div class="article-page">
     <div class="banner">
         <div class="container">
@@ -29,7 +31,7 @@
             <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/editor/{{ $article->id }}'">
             <i class="ion-edit"></i> Edit Article
             </button>
-            <button class="btn btn-sm btn-outline-danger">
+            <button type="submit" class="btn btn-sm btn-outline-danger">
             <i class="ion-trash-a"></i> Delete Article
             </button>
         </div>

@@ -14,3 +14,5 @@ Route::get('/article/{id}', [ConduitController::class, 'showDetail'])->name('det
 Route::get('/editor/{id}', [ConduitController::class, 'showEditor'])->name('edit');
 
 Route::post('/editor/update', [ConduitController::class, 'exeUpdate'])->name('update');
+
+Route::post('/article/delete/{id}', [ConduitController::class, 'exeDelete'])->name('delete');
