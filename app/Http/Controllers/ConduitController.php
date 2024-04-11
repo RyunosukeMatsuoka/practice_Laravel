@@ -76,11 +76,31 @@ class ConduitController extends Controller
     public function exeStore(Request $request)
     {
         $inputs = $request->all();
+
         // 認証認可で修正
         $inputs['user_id'] = 4;
-        Article::create($inputs);
+
+        $article = Article::create($inputs);
+
+        $tags = explode(',', $inputs['tags']);
+        $article->tags()->sync($this->saveTags($tags));
 
         return redirect(route('articles'));
+    }
+
+    /**
+     * タグを保存する
+     * @param array $tags
+     * @return array
+     */
+    private function saveTags(array $tags)
+    {
+        $tagIds = [];
+        foreach ($tags as $tagName) {
+            $tag = Tag::firstOrCreate(['name' => trim($tagName)]);
+            $tagIds[] = $tag->id;
+        }
+        return $tagIds;
     }
 
     /**
