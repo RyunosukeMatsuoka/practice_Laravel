@@ -107,9 +107,7 @@ class ConduitController extends Controller
         $inputs = $request->all();
         $article = Article::find($inputs['id']);
 
-        $article->title = $inputs['title'];
-        $article->outline = $inputs['outline'];
-        $article->content = $inputs['content'];
+        $article->fill($inputs);
 
         $article->save();
 
