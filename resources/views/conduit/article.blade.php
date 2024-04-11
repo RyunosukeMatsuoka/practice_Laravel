@@ -82,7 +82,7 @@
                 <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
             </div>
             <div class="card-footer">
-                <!-- <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" /> -->
+                <img class="comment-author-img" src="https://api.realworld.io/images/smiley-cyrus.jpeg">
                 <button class="btn btn-sm btn-primary">Post Comment</button>
             </div>
             </form>

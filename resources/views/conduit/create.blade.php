@@ -4,7 +4,8 @@
 <div class="editor-page">
     <div class="container page">
         <div class="row">
-        <div class="col-md-10 offset-md-1 col-xs-12">
+        <div class="col-md-6 offset-md-3 col-xs-12">
+            <h1 class="text-xs-center">New Article</h1>
             <ul class="error-messages">
             </ul>
 
@@ -26,7 +27,7 @@
                     ></textarea>
                 </fieldset>
                 <fieldset class="form-group">
-                    <input type="text" class="form-control" placeholder="Enter tags" />
+                    <input type="text" class="form-control" placeholder="Enter tags (separated by commas)" name="tags"/>
                     <div class="tag-list">
                         <span class="tag-default tag-pill"> <i class="ion-close-round"></i> tag </span>
                     </div>
