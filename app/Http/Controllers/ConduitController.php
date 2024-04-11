@@ -40,7 +40,22 @@ class ConduitController extends Controller
         $article_tags = Article_tag::all();
         $tags = Tag::all();
 
-        return view('conduit.home-tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
+        return view('conduit.home_tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
+    }
+
+    /**
+     * ユーザーの記事を表示
+     * @param int $user_id
+     * @return view
+     */
+    public function showOwnList($user_id)
+    {
+        $articles = Article::where('user_id', $user_id)->orderBy('created_at', 'desc')->paginate(25);
+        $user = User::where('id', $user_id)->first();
+        $article_tags = Article_tag::all();
+        $tags = Tag::all();
+
+        return view('conduit.home_own', compact('articles', 'article_tags', 'tags', 'user'));
     }
 
     /**

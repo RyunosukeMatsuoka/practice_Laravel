@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ConduitController::class, 'showList'])->name('articles');
 // ホーム画面/タグで分類して表示
 Route::get('tag/{id}', [ConduitController::class, 'showSortList'])->name('sortArticles');
+// ホーム画面/ユーザーの記事を表示
+Route::get('/myArticles/{user_id}', [ConduitController::class, 'showOwnList'])->name('ownArticles');
 // 新規記事作成画面を表示
 Route::get('/create', [ConduitController::class, 'showCreate'])->name('create');
 // 新規記事を保存
