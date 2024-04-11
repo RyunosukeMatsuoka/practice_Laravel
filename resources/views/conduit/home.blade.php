@@ -46,20 +46,22 @@
                 <p>{{ $article->outline }}</p>
                 <span>Read more...</span>
                 <ul class="tag-list">
+                @php $stockTags = []; @endphp
                 @foreach ($article_tags as $article_tag)
                     @if ($article_tag->article_id === $article->id)
                         @php $stockTags[] = $article_tag->tag_id; @endphp
                     @endif
                 @endforeach
-                @foreach ($stockTags as $stockTag)
-                    @foreach ($tags as $tag)
-                        @if ($stockTag === $tag->id)
-                            <li class="tag-default tag-pill tag-outline">{{ $tag->name }}</li>
-                        @endif
+                @if (!is_null($stockTags))
+                    @foreach ($stockTags as $stockTag)
+                        @foreach ($tags as $tag)
+                            @if ($stockTag === $tag->id)
+                                <li class="tag-default tag-pill tag-outline">{{ $tag->name }}</li>
+                            @endif
+                        @endforeach
                     @endforeach
-                @endforeach
+                @endif
                 </ul>
-                @php $stockTags = []; @endphp
             </a>
             </div>
             @endforeach
