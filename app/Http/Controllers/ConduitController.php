@@ -21,13 +21,7 @@ class ConduitController extends Controller
         $tags = Tag::all();
         $users = User::all();
 
-        return view('conduit.home', [
-                'articles' => $articles,
-                'article_tags' => $article_tags,
-                'tags' => $tags,
-                'users' => $users,
-            ]
-        );
+        return view('conduit.home', compact('articles', 'article_tags', 'tags', 'users'));
     }
 
     /**
@@ -46,14 +40,7 @@ class ConduitController extends Controller
         $article_tags = Article_tag::all();
         $tags = Tag::all();
 
-        return view('conduit.home-tag', [
-                'articles' => $articles,
-                'article_tags' => $article_tags,
-                'tag' => $tag,
-                'tags' => $tags,
-                'users' => $users,
-            ]
-        );
+        return view('conduit.home-tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
     }
 
     /**
@@ -69,12 +56,7 @@ class ConduitController extends Controller
         $tags = Tag::whereIn('id', $tag_ids)->get();
         $user = User::where('id', $article->user_id)->first();
 
-        return view('conduit.article', [
-                'article' => $article,
-                'tags' => $tags,
-                'user' => $user,
-            ]
-        );
+        return view('conduit.article', compact('article', 'tags', 'user'));
     }
 
     /**
@@ -109,13 +91,10 @@ class ConduitController extends Controller
     public function showEditor($id)
     {
         $article = Article::find($id);
+        // ここでユーザーを絞りたい
         $users = User::all();
 
-        return view('conduit.editor', [
-                'article' => $article,
-                'users' => $users,
-            ]
-        );
+        return view('conduit.editor', compact('article', 'users'));
     }
 
     /**

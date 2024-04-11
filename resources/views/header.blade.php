@@ -15,6 +15,7 @@
         <li class="nav-item">
             <a class="nav-link" href="/profile/eric-simons">
             <img src="" class="user-pic" />
+            <!-- ログインユーザーに名前鵜を変更 -->
             Eric Simons
             </a>
         </li>
