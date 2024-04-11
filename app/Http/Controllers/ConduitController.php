@@ -111,10 +111,16 @@ class ConduitController extends Controller
     public function showEditor($id)
     {
         $article = Article::find($id);
-        // ここでユーザーを絞りたい
-        $users = User::all();
+        $user = User::where('id', $article->user_id)->first();
+        $article_tags = Article_tag::where('article_id', $article->id)->get();
+        $tag_ids = $article_tags->pluck('tag_id')->toArray();
+        $tags = Tag::whereIn('id', $tag_ids)->get();
+        foreach ($tags as $tag) {
+            $Tags[] = $tag->name;
+        }
+        $tags = implode(',', $Tags);
 
-        return view('conduit.editor', compact('article', 'users'));
+        return view('conduit.editor', compact('article', 'user', 'tags'));
     }
 
     /**
@@ -128,6 +134,8 @@ class ConduitController extends Controller
         $article = Article::find($inputs['id']);
 
         $article->fill($inputs);
+        $tags = explode(',', $inputs['tags']);
+        $article->tags()->sync($this->saveTags($tags));
 
         $article->save();
 

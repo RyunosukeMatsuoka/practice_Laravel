@@ -28,7 +28,7 @@
                     >{{ $article->content }}</textarea>
                 </fieldset>
                 <fieldset class="form-group">
-                    <input type="text" class="form-control" placeholder="Enter tags" />
+                    <input type="text" class="form-control" placeholder="Enter tags (separated by commas)" name="tags" value="{{ $tags }}"/>
                     <div class="tag-list">
                         <span class="tag-default tag-pill"> <i class="ion-close-round"></i> tag </span>
                     </div>
