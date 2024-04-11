@@ -149,7 +149,18 @@ class ConduitController extends Controller
      */
     public function exeDelete($id)
     {
-        Article::destroy($id);
+        $article = Article::findOrFail($id);
+
+        $tags = $article->tags;
+
+        $article->delete();
+
+        // 記事に紐づいていたタグが他の記事に紐づいていない場合は、タグを削除
+        foreach ($tags as $tag) {
+            if ($tag->articles()->count() === 0) {
+                $tag->delete();
+            }
+        }
 
         return redirect(route('articles'));
     }
