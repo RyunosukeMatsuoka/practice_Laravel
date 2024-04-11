@@ -15,7 +15,7 @@ Route::post('/create/store', [ConduitController::class, 'exeStore'])->name('stor
 Route::get('/article/{id}', [ConduitController::class, 'showDetail'])->name('detail');
 // 既存記事編集画面を表示
 Route::get('/editor/{id}', [ConduitController::class, 'showEditor'])->name('edit');
-// 既存記事を更新
+// 既存記事を更新し保存
 Route::post('/editor/update', [ConduitController::class, 'exeUpdate'])->name('update');
 // 既存記事を削除
 Route::post('/article/delete/{id}', [ConduitController::class, 'exeDelete'])->name('delete');
