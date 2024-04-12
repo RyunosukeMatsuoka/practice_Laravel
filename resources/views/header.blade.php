@@ -3,19 +3,21 @@
         <a class="navbar-brand" href="/">conduit</a>
         <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-            <!-- Add "active" class when you're on that page" -->
-            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link" id="home-link" href="/">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/create"> <i class="ion-compose"></i>&nbsp;New Article </a>
+            <a class="nav-link" id="create-link" href="/create">
+            <i class="ion-compose"></i>&nbsp;New Article
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
+            <a class="nav-link" id="settings-link" href="/settings">
+            <i class="ion-gear-a"></i>&nbsp;Settings
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/profile/eric-simons">
+            <a class="nav-link" id="profile-link" href="/profile/eric-simons">
             <img src="" class="user-pic" />
-            <!-- ログインユーザーに名前鵜を変更 -->
             Prof. Tod Koepp Sr.
             </a>
         </li>
