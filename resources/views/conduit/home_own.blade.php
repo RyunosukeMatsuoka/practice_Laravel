@@ -15,7 +15,7 @@
             <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
                 <li class="nav-item">
-                <a class="nav-link active" href="/myArticles/{{ 4 }}">Your Feed</a>
+                <a class="nav-link active" href="/myArticles/{{ Auth::user()->id }}">Your Feed</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/">Global Feed</a>
@@ -25,9 +25,9 @@
             @foreach($articles as $article)
             <div class="article-preview">
             <div class="article-meta">
-                <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+                <a href="/profile/{{ Auth::user()->id }}"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
                 <div class="info">
-                    <a href="/profile/{{ $user->id }}" class="author">{{ $user->name }}</a>
+                    <a href="/profile/{{ Auth::user()->id }}" class="author">{{ $user->name }}</a>
                 <span class="date">{{ $article->created_at }}</span>
                 </div>
                 <button class="btn btn-outline-primary btn-sm pull-xs-right">

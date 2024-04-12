@@ -33,7 +33,6 @@
     <script>
         const homeLink = document.getElementById('home-link');
         const createLink = document.getElementById('create-link');
-        const settingsLink = document.getElementById('settings-link');
         const profileLink = document.getElementById('profile-link');
 
         const currentUrl = window.location.pathname;
@@ -42,32 +41,26 @@
         if (currentUrl === '/') {
             homeLink.classList.add('active');
             createLink.classList.remove('active');
-            settingsLink.classList.remove('active');
             profileLink.classList.remove('active');
         } else if (currentUrl.startsWith('/myArticles')) {
             homeLink.classList.add('active');
             createLink.classList.remove('active');
-            settingsLink.classList.remove('active');
             profileLink.classList.remove('active');
         } else if (currentUrl.startsWith('/tag')) {
             homeLink.classList.add('active');
             createLink.classList.remove('active');
-            settingsLink.classList.remove('active');
             profileLink.classList.remove('active');
         } else if (currentUrl === '/create') {
             homeLink.classList.remove('active');
             createLink.classList.add('active');
-            settingsLink.classList.remove('active');
             profileLink.classList.remove('active');
         } else if (currentUrl === '/settings') {
             homeLink.classList.remove('active');
             createLink.classList.remove('active');
-            settingsLink.classList.add('active');
             profileLink.classList.remove('active');
         } else if (currentUrl.startsWith('/profile/')) {
             homeLink.classList.remove('active');
             createLink.classList.remove('active');
-            settingsLink.classList.remove('active');
             profileLink.classList.add('active');
         }
     </script>

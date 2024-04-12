@@ -24,8 +24,6 @@ class ArticleController extends Controller
         $tags = Tag::whereIn('id', $tag_ids)->get();
         $user = User::where('id', $article->user_id)->first();
 
-        // return view('conduit.article', compact('article', 'tags', 'user'));
-        // return view('conduit.Unauth_article', compact('article', 'tags', 'user'));
         if (Auth::check()) {
             return view('conduit.article', compact('article', 'tags', 'user'));
         } else {
@@ -52,8 +50,7 @@ class ArticleController extends Controller
         $inputs = $request->all();
         $tags = explode(',', $inputs['tags']);
 
-        // 認証認可で修正
-        $inputs['user_id'] = 4;
+        $inputs['user_id'] = Auth::user()->id;
 
         DB::beginTransaction();
         try {

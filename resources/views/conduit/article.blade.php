@@ -9,9 +9,9 @@
         <h1>{{ $article->title }}</h1>
 
         <div class="article-meta">
-            <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+            <a href="/profile/{{ $user->id }}"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-                    <a href="/profile/eric-simons" class="author"> {{ $user->name }} </a>
+                    <a href="/profile/{{ $user->id }}" class="author"> {{ $user->name }} </a>
             <span class="date"> {{ $article->created_at }} </span>
             </div>
             <button class="btn btn-sm btn-outline-secondary">
@@ -23,12 +23,14 @@
             <i class="ion-heart"></i>
             &nbsp; Favorite Post <span class="counter">(29)</span>
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/editor/{{ $article->id }}'">
-            <i class="ion-edit"></i> Edit Article
-            </button>
-            <button type="submit" class="btn btn-sm btn-outline-danger">
-            <i class="ion-trash-a"></i> Delete Article
-            </button>
+            @if ($user->id === Auth::user()->id)
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/editor/{{ $article->id }}'">
+                <i class="ion-edit"></i> Edit Article
+                </button>
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="ion-trash-a"></i> Delete Article
+                </button>
+            @endif
         </div>
         </div>
     </div>
@@ -53,7 +55,7 @@
         <div class="article-meta">
             <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-            <a href="" class="author"> {{ $user->name }} </a>
+            <a href="/profile/{{ $user->id }}" class="author"> {{ $user->name }} </a>
             <span class="date">{{ $article->created_at }}</span>
             </div>
 
@@ -66,12 +68,14 @@
             <i class="ion-heart"></i>
             &nbsp; Favorite Article <span class="counter">(29)</span>
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/editor/{{ $article->id }}'">
-            <i class="ion-edit"></i> Edit Article
-            </button>
-            <button type="submit" class="btn btn-sm btn-outline-danger">
-            <i class="ion-trash-a"></i> Delete Article
-            </button>
+            @if ($user->id === Auth::user()->id)
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/editor/{{ $article->id }}'">
+                <i class="ion-edit"></i> Edit Article
+                </button>
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="ion-trash-a"></i> Delete Article
+                </button>
+            @endif
         </div>
         </div>
 

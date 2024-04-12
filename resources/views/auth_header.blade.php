@@ -11,15 +11,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="settings-link" href="/settings">
-            <i class="ion-gear-a"></i>&nbsp;Settings
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="profile-link" href="/profile/{{ Auth::user()->name }}">
+            <a class="nav-link" id="profile-link" href="/profile/{{ Auth::user()->id }}">
             <img src="" class="user-pic" />
             {{ Auth::user()->name }}
             </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="signOut-link" href="/signOut">Sign out</a>
         </li>
         </ul>
     </div>

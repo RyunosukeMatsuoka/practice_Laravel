@@ -15,7 +15,7 @@
             <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
                 <li class="nav-item">
-                <a class="nav-link" href="/myArticles/{{ 4 }}">Your Feed</a>
+                <a class="nav-link" href="/myArticles/{{ Auth::user()->id }}">Your Feed</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/">Global Feed</a>

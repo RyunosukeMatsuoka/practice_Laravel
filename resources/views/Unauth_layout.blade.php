@@ -46,11 +46,11 @@
             homeLink.classList.add('active');
             SignInLink.classList.remove('active');
             SignUpLink.classList.remove('active');
-        } else if (currentUrl === '/SignIn') {
+        } else if (currentUrl === '/signIn') {
             homeLink.classList.remove('active');
             SignInLink.classList.add('active');
             SignUpLink.classList.remove('active');
-        } else if (currentUrl === '/SignUp') {
+        } else if (currentUrl === '/signUp') {
             homeLink.classList.remove('active');
             SignInLink.classList.remove('active');
             SignUpLink.classList.add('active');
