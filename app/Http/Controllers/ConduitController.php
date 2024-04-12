@@ -7,6 +7,7 @@ use App\Models\Article_tag;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
 
 class ConduitController extends Controller
 {
@@ -88,7 +89,7 @@ class ConduitController extends Controller
      * @param object $request
      * @return view
      */
-    public function exeStore(Request $request)
+    public function exeStore(ArticleRequest $request)
     {
         $inputs = $request->all();
 
@@ -143,7 +144,7 @@ class ConduitController extends Controller
      * @param object $request
      * @return view
      */
-    public function exeUpdate(Request $request)
+    public function exeUpdate(ArticleRequest $request)
     {
         $inputs = $request->all();
         $article = Article::find($inputs['id']);
