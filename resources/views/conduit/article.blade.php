@@ -54,7 +54,7 @@
             <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
             <a href="" class="author"> {{ $user->name }} </a>
-            <span class="date">$article->created_at</span>
+            <span class="date">{{ $article->created_at }}</span>
             </div>
 
             <button class="btn btn-sm btn-outline-secondary">
@@ -86,22 +86,6 @@
                 <button class="btn btn-sm btn-primary">Post Comment</button>
             </div>
             </form>
-
-            <!-- <div class="card">
-            <div class="card-block">
-                <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
-                </p>
-            </div>
-            <div class="card-footer">
-                <a href="/profile/author" class="comment-author">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-                </a>
-                &nbsp;
-                <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
-                <span class="date-posted">Dec 29th</span>
-            </div>
-            </div>
         </div>
         </div>
     </div>

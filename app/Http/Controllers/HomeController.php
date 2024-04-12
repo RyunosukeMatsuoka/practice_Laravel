@@ -20,7 +20,8 @@ class HomeController extends Controller
         $tags = Tag::all();
         $users = User::all();
 
-        return view('conduit.home', compact('articles', 'article_tags', 'tags', 'users'));
+        // return view('conduit.home', compact('articles', 'article_tags', 'tags', 'users'));
+        return view('conduit.Unauth_home', compact('articles', 'article_tags', 'tags', 'users'));
     }
 
     /**
@@ -39,7 +40,8 @@ class HomeController extends Controller
         $article_tags = Article_tag::all();
         $tags = Tag::all();
 
-        return view('conduit.home_tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
+        // return view('conduit.home_tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
+        return view('conduit.Unauth_home_tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
     }
 
     /**

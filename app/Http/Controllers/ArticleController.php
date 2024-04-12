@@ -23,7 +23,8 @@ class ArticleController extends Controller
         $tags = Tag::whereIn('id', $tag_ids)->get();
         $user = User::where('id', $article->user_id)->first();
 
-        return view('conduit.article', compact('article', 'tags', 'user'));
+        // return view('conduit.article', compact('article', 'tags', 'user'));
+        return view('conduit.Unauth_article', compact('article', 'tags', 'user'));
     }
 
     /**
