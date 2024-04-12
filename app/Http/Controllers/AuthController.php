@@ -21,9 +21,21 @@ class AuthController extends Controller
     /**
      * @param App\Http\Requests\LoginRequest $request
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): RedirectResponse
     {
-        dd($request->all());
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $userId = Auth::user()->id;
+
+            return redirect()->route('ownArticles', ['user_id' => $userId]);
+        }
+
+        return back()->withErrors([
+            'login_error' => 'email or password is invalid',
+        ]);
     }
 
     /**

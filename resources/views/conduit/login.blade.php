@@ -17,6 +17,12 @@
                 </ul>
             @endif
 
+            @if (session('login_error'))
+                <ul class="error-messages">
+                    <li>{{ session('login_error') }}</li>
+                </ul>
+            @endif
+
             <form method="POST" action="{{ route('login') }}">
             @csrf
             <fieldset class="form-group">

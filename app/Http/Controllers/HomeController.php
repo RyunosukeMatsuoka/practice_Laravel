@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Article_tag;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,7 +22,12 @@ class HomeController extends Controller
         $users = User::all();
 
         // return view('conduit.home', compact('articles', 'article_tags', 'tags', 'users'));
-        return view('conduit.Unauth_home', compact('articles', 'article_tags', 'tags', 'users'));
+        // return view('conduit.Unauth_home', compact('articles', 'article_tags', 'tags', 'users'));
+        if (Auth::check()) {
+            return view('conduit.home', compact('articles', 'article_tags', 'tags', 'users'));
+        } else {
+            return view('conduit.Unauth_home', compact('articles', 'article_tags', 'tags', 'users'));
+        }
     }
 
     /**
@@ -41,7 +47,12 @@ class HomeController extends Controller
         $tags = Tag::all();
 
         // return view('conduit.home_tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
-        return view('conduit.Unauth_home_tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
+        // return view('conduit.Unauth_home_tag', compact('articles', 'article_tags', 'tag','tags', 'users'));
+        if (Auth::check()) {
+            return view('conduit.home_tag', compact('articles', 'article_tags', 'tag', 'tags', 'users'));
+        } else {
+            return view('conduit.Unauth_home_tag', compact('articles', 'article_tags', 'tag', 'tags', 'users'));
+        }
     }
 
     /**

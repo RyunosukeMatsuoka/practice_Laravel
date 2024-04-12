@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
     /**
@@ -24,7 +25,12 @@ class ArticleController extends Controller
         $user = User::where('id', $article->user_id)->first();
 
         // return view('conduit.article', compact('article', 'tags', 'user'));
-        return view('conduit.Unauth_article', compact('article', 'tags', 'user'));
+        // return view('conduit.Unauth_article', compact('article', 'tags', 'user'));
+        if (Auth::check()) {
+            return view('conduit.article', compact('article', 'tags', 'user'));
+        } else {
+            return view('conduit.Unauth_article', compact('article', 'tags', 'user'));
+        }
     }
 
     /**

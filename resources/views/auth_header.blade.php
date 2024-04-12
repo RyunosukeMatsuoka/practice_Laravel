@@ -16,9 +16,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-link" href="/profile/eric-simons">
+            <a class="nav-link" id="profile-link" href="/profile/{{ Auth::user()->name }}">
             <img src="" class="user-pic" />
-            Prof. Tod Koepp Sr.
+            {{ Auth::user()->name }}
             </a>
         </li>
         </ul>
