@@ -9,11 +9,16 @@
             <p class="text-xs-center">
             <a href="/signUp">Need an account?</a>
             </p>
-
-            <ul class="error-messages">
-            </ul>
+            @if ($errors->any())
+                <ul class="error-messages">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
 
             <form method="POST" action="{{ route('login') }}">
+            @csrf
             <fieldset class="form-group">
                 <input class="form-control form-control-lg" type="text" placeholder="Email" name="email"/>
             </fieldset>

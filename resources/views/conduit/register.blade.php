@@ -10,10 +10,16 @@
             <a href="/signIn">Have an account?</a>
             </p>
 
-            <ul class="error-messages">
-            </ul>
+            @if ($errors->any())
+                <ul class="error-messages">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
 
             <form method="POST" action="{{ route('register') }}">
+            @csrf
             <fieldset class="form-group">
                 <input class="form-control form-control-lg" type="text" placeholder="Username" name="name"/>
             </fieldset>

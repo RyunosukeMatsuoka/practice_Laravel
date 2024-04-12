@@ -23,7 +23,7 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-
+        dd($request->all());
     }
 
     /**
@@ -39,6 +39,6 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-
+        dd($request->all());
     }
 }
