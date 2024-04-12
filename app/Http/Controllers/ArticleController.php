@@ -7,7 +7,7 @@ use App\Models\Article_tag;
 use App\Models\Tag;
 use App\Models\User;
 use App\Http\Requests\ArticleRequest;
-
+use Illuminate\Support\Facades\DB;
 class ArticleController extends Controller
 {
     /**
@@ -43,14 +43,20 @@ class ArticleController extends Controller
     public function exeStore(ArticleRequest $request)
     {
         $inputs = $request->all();
+        $tags = explode(',', $inputs['tags']);
 
         // 認証認可で修正
         $inputs['user_id'] = 4;
 
-        $article = Article::create($inputs);
-
-        $tags = explode(',', $inputs['tags']);
-        $article->tags()->sync($this->saveTags($tags));
+        DB::beginTransaction();
+        try {
+            $article = Article::create($inputs);
+            $article->tags()->sync($this->saveTags($tags));
+            DB::commit();
+        } catch(\Throwable $e) {
+            DB::rollback();
+            abort(500);
+        }
 
         return redirect(route('articles'));
     }
@@ -102,9 +108,16 @@ class ArticleController extends Controller
 
         $article->fill($inputs);
         $tags = explode(',', $inputs['tags']);
-        $article->tags()->sync($this->saveTags($tags));
 
-        $article->save();
+        DB::beginTransaction();
+        try {
+            $article->tags()->sync($this->saveTags($tags));
+            $article->save();
+            DB::commit();
+        } catch(\Throwable $e) {
+            DB::rollBack();
+            abort(500);
+        }
 
         return redirect(route('articles'));
     }
