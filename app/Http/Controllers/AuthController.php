@@ -38,6 +38,20 @@ class AuthController extends Controller
         ]);
     }
 
+    /* *
+     * @param use Illuminate\Http\Request $request
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('articles');
+    }
+
     /**
      * @return View
      *  */

@@ -17,7 +17,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="signOut-link" href="/signOut">Sign out</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <!-- <a type="submit" class="nav-link" id="signOut-link">Sign out</a> -->
+                <p class="nav-link" id="signOut-link">
+                    <input type="submit" value="Sign out" />
+                </p>
+            </form>
         </li>
         </ul>
     </div>
