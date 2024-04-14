@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -65,6 +67,17 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        dd($request->all());
+        $inputs = $request->all();
+
+        DB::beginTransaction();
+        try {
+            User::create($inputs);
+            DB::commit();
+        } catch(\Throwable $e) {
+            DB::rollback();
+            abort(500);
+        }
+
+        return redirect(route('showLogin'));
     }
 }

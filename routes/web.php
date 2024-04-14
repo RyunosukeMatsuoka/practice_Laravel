@@ -58,26 +58,27 @@ Route::get('/tag/{id}', [HomeController::class, 'showSortList'])->name('sortArti
 Route::get('/article/{id}', [ArticleController::class, 'showDetail'])->name('detail');
 
 // ユーザー登録画面を表示
-Route::get('/signUp', [AuthController::class, 'showRegister'])->name('showRegister');
+Route::get('/signUp', [AuthController::class, 'showRegister'])->name('showRegister')->middleware('guest');
 // ユーザー登録機能
-Route::post('/signUp/register', [AuthController::class, 'register'])->name('register');
+Route::post('/signUp/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
 // ログイン画面を表示
-Route::get('/signIn', [AuthController::class, 'showLogin'])->name('showLogin');
+Route::get('/signIn', [AuthController::class, 'showLogin'])->name('showLogin')->middleware('guest');
 // ログイン機能
-Route::post('/signIn/login', [AuthController::class, 'login'])->name('login');
+Route::post('/signIn/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 
 // ホーム画面/ユーザーの記事を表示
-Route::get('/myArticles/{user_id}', [HomeController::class, 'showOwnList'])->name('ownArticles');
+Route::get('/myArticles/{user_id}', [HomeController::class, 'showOwnList'])->name('ownArticles')->middleware('auth');
 // 新規記事作成画面を表示
-Route::get('/create', [ArticleController::class, 'showCreate'])->name('create');
+Route::get('/create', [ArticleController::class, 'showCreate'])->name('create')->middleware('auth');
 // 新規記事を保存
-Route::post('/create/store', [ArticleController::class, 'exeStore'])->name('store');
+Route::post('/create/store', [ArticleController::class, 'exeStore'])->name('store')->middleware('auth');
 // 既存記事編集画面を表示
-Route::get('/editor/{id}', [ArticleController::class, 'showEditor'])->name('edit');
+Route::get('/editor/{id}', [ArticleController::class, 'showEditor'])->name('edit')->middleware('auth');
 // 既存記事を更新し保存
-Route::post('/editor/update', [ArticleController::class, 'exeUpdate'])->name('update');
+Route::post('/editor/update', [ArticleController::class, 'exeUpdate'])->name('update')->middleware('auth');
 // 既存記事を削除
-Route::post('/article/delete/{id}', [ArticleController::class, 'exeDelete'])->name('delete');
+Route::post('/article/delete/{id}', [ArticleController::class, 'exeDelete'])->name('delete')->middleware('auth');
 
 // ログアウト機能
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
