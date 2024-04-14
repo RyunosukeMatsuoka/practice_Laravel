@@ -1,37 +1,36 @@
 @extends('layout')
 @section('title', 'Article | ')
 @section('content')
-@foreach ($users as $user)
-    @if($article->user_id === $user->id)
-        @php $articleUser = $user; @endphp
-    @endif
-@endforeach
+<form method="POST" action="{{ route('delete', $article->id) }}">
+@csrf
 <div class="article-page">
     <div class="banner">
         <div class="container">
         <h1>{{ $article->title }}</h1>
 
         <div class="article-meta">
-            <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+            <a href="/profile/{{ $user->id }}"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-                    <a href="/profile/eric-simons" class="author"> {{ $articleUser->name }} </a>
+                    <a href="/profile/{{ $user->id }}" class="author"> {{ $user->name }} </a>
             <span class="date"> {{ $article->created_at }} </span>
             </div>
             <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-                    &nbsp; Follow {{ $articleUser->name }} <span class="counter">(10)</span>
+                    &nbsp; Follow {{ $user->name }} <span class="counter">(10)</span>
             </button>
             &nbsp;&nbsp;
             <button class="btn btn-sm btn-outline-primary">
             <i class="ion-heart"></i>
             &nbsp; Favorite Post <span class="counter">(29)</span>
             </button>
-            <button class="btn btn-sm btn-outline-secondary">
-            <i class="ion-edit"></i> Edit Article
-            </button>
-            <button class="btn btn-sm btn-outline-danger">
-            <i class="ion-trash-a"></i> Delete Article
-            </button>
+            @if ($user->id === Auth::user()->id)
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/editor/{{ $article->id }}'">
+                <i class="ion-edit"></i> Edit Article
+                </button>
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="ion-trash-a"></i> Delete Article
+                </button>
+            @endif
         </div>
         </div>
     </div>
@@ -43,8 +42,9 @@
                 {{ $article->content }}
             </p>
             <ul class="tag-list">
-            <li class="tag-default tag-pill tag-outline">realworld</li>
-            <li class="tag-default tag-pill tag-outline">implementations</li>
+                @foreach ($tags as $tag)
+                    <li class="tag-default tag-pill tag-outline">{{ $tag->name }}</li>
+                @endforeach
             </ul>
         </div>
         </div>
@@ -55,25 +55,27 @@
         <div class="article-meta">
             <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
             <div class="info">
-            <a href="" class="author"> {{ $articleUser->name }} </a>
-            <span class="date">$article->created_at</span>
+            <a href="/profile/{{ $user->id }}" class="author"> {{ $user->name }} </a>
+            <span class="date">{{ $article->created_at }}</span>
             </div>
 
             <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-            &nbsp; Follow {{ $articleUser->name }}
+            &nbsp; Follow {{ $user->name }}
             </button>
             &nbsp;
             <button class="btn btn-sm btn-outline-primary">
             <i class="ion-heart"></i>
             &nbsp; Favorite Article <span class="counter">(29)</span>
             </button>
-            <button class="btn btn-sm btn-outline-secondary">
-            <i class="ion-edit"></i> Edit Article
-            </button>
-            <button class="btn btn-sm btn-outline-danger">
-            <i class="ion-trash-a"></i> Delete Article
-            </button>
+            @if ($user->id === Auth::user()->id)
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/editor/{{ $article->id }}'">
+                <i class="ion-edit"></i> Edit Article
+                </button>
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="ion-trash-a"></i> Delete Article
+                </button>
+            @endif
         </div>
         </div>
 
@@ -84,45 +86,10 @@
                 <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
             </div>
             <div class="card-footer">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+                <img class="comment-author-img" src="https://api.realworld.io/images/smiley-cyrus.jpeg">
                 <button class="btn btn-sm btn-primary">Post Comment</button>
             </div>
             </form>
-
-            <div class="card">
-            <div class="card-block">
-                <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
-                </p>
-            </div>
-            <div class="card-footer">
-                <a href="/profile/author" class="comment-author">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-                </a>
-                &nbsp;
-                <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
-                <span class="date-posted">Dec 29th</span>
-            </div>
-            </div>
-
-            <div class="card">
-            <div class="card-block">
-                <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
-                </p>
-            </div>
-            <div class="card-footer">
-                <a href="/profile/author" class="comment-author">
-                <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-                </a>
-                &nbsp;
-                <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
-                <span class="date-posted">Dec 29th</span>
-                <span class="mod-options">
-                <i class="ion-trash-a"></i>
-                </span>
-            </div>
-            </div>
         </div>
         </div>
     </div>

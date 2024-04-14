@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('Unauth_layout')
 @section('title', '')
 @section('content')
 <div class="home-page">
@@ -15,9 +15,6 @@
             <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
                 <li class="nav-item">
-                <a class="nav-link" href="/myArticles/{{ Auth::user()->id }}">Your Feed</a>
-                </li>
-                <li class="nav-item">
                 <a class="nav-link active" href="/">Global Feed</a>
                 </li>
             </ul>
@@ -25,11 +22,7 @@
             @foreach($articles as $article)
             <div class="article-preview">
             <div class="article-meta">
-                @foreach($users as $user)
-                    @if($article->user_id === $user->id)
-                        <a href="/profile/{{ $user->id }}"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-                    @endif
-                @endforeach
+                <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
                 <div class="info">
                 @foreach($users as $user)
                     @if($article->user_id === $user->id)
