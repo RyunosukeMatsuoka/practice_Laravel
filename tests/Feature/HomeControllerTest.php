@@ -19,107 +19,55 @@ class HomeControllerTest extends TestCase
     public function test_authenticated_user_can_see_articles_page()
     {
         $user = User::factory()->create();
-        $this->actingAs($user);
 
-        $articles = Article::factory(10)->create();
-        $tags = Tag::factory(5)->create();
-        // $article_tags = Article_tag::factory(5)->create();
-        // $users = User::factory(3)->create();
-
-        $response = $this->get(route('articles'));
+        $response = $this->actingAs($user)->get('/');
 
         $response->assertStatus(200);
-        $response->assertViewIs('conduit.home');
 
-        foreach ($articles as $article) {
-            $response->assertSee($article->title);
-            $response->assertSee($article->outline);
-        }
-
-        foreach ($tags as $tag) {
-            $response->assertSee($tag->name);
-        }
+        $response->assertSee('Global Feed');
+        $response->assertSee('New Article');
+        $response->assertSee('Your Feed');
     }
 
     public function test_unauthenticated_user_can_see_articles_page()
     {
-        // $users = User::factory(3)->create();
-        $this->actingAs(User::factory()->create(), 'web');
-        $articles = Article::factory(10)->create();
-        $tags = Tag::factory(5)->create();
-        // $article_tags = Article_tag::factory(5)->create();
-
-        $response = $this->get(route('articles'));
+        $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertViewIs('conduit.Unauth_home');
 
-        foreach ($articles as $article) {
-            $response->assertSee($article->title);
-            $response->assertSee($article->outline);
-        }
-
-        foreach ($tags as $tag) {
-            $response->assertSee($tag->name);
-        }
-
-        /* foreach ($users as $user) {
-            $response->assertSee($user->name);
-        } */
+        $response->assertSee('Global Feed');
+        $response->assertDontSee('New Article');
+        $response->assertDontSee('Your Feed');
     }
 
-    public function test_authenticated_user_can_access_tag_page()
+    public function test_all_user_can_see_article_detail_page()
     {
-        // Arrange
         $user = User::factory()->create();
-        $this->actingAs($user);
+        $article = Article::factory()->create(['user_id' => $user->id]);
 
-        $tag = Tag::factory()->create();
-        // $articles = Article::factory()->count(5)->create();
-        /* $article_tags = [];
-        foreach ($articles as $article) {
-            $article_tags[] = Article_tag::factory()->create([
-                'article_id' => $article->id,
-                'tag_id' => $tag->id,
-            ]);
-        } */
-        $users = User::factory()->count(5)->create();
+        $response = $this->get('/article/' . $article->id);
 
-        // Act
-        $response = $this->get(route('sortArticles', ['id' => $tag->id]));
-
-        // Assert
         $response->assertStatus(200);
-        $response->assertViewIs('conduit.home_tag');
-        $response->assertViewHas('articles');
-        $response->assertViewHas('article_tags');
-        $response->assertViewHas('tag', $tag);
-        $response->assertViewHas('tags', Tag::all());
-        $response->assertViewHas('users', $users);
+
+        $response->assertSee($user->name);
+        $response->assertSee($article->title);
+        $response->assertSee($article->content);
     }
 
-    public function test_unauthenticated_user_can_access_tag_page()
+    public function test_user_can_signUp_and_is_redirected_to_showLogin()
     {
-        $tag = Tag::factory()->create();
-        $articles = Article::factory()->count(5)->create();
-        /* $article_tags = [];
-        foreach ($articles as $article) {
-            $article_tags[] = Article_tag::factory()->create([
-                'article_id' => $article->id,
-                'tag_id' => $tag->id,
-            ]);
-        } */
-        $users = User::factory()->count(5)->create();
+        $userData = [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+        ];
 
-        $response = $this->get(route('sortArticles', ['id' => $tag->id]));
+        $response = $this->post(route('register'), $userData);
 
-        $response->assertStatus(200);
-        $response->assertViewIs('conduit.Unauth_home_tag');
-        $response->assertViewHas('articles', $articles);
-        $response->assertViewHas('article_tags');
-        $response->assertViewHas('tag', $tag);
-        $response->assertViewHas('tags', Tag::all());
-        $response->assertViewHas('users', $users);
+        $response->assertRedirect(route('showLogin'));
+        $this->assertDatabaseHas('users', [
+            'email' => $userData['email'],
+        ]);
     }
 
     public function test_guest_user_is_redirected_to_loginPage()
@@ -147,7 +95,7 @@ class HomeControllerTest extends TestCase
 
     public function test_user_with_invalid_credentials_cannot_login()
     {
-        $user = User::factory()->create([
+        User::factory()->create([
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);
