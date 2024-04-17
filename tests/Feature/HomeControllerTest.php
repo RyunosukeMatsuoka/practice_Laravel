@@ -10,6 +10,7 @@ use App\Models\Article_tag;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 
 class HomeControllerTest extends TestCase
 {
@@ -52,5 +53,59 @@ class HomeControllerTest extends TestCase
         $response->assertViewHas('article_tags');
         $response->assertViewHas('tags');
         $response->assertViewHas('users');
+    }
+
+    public function test_authenticated_user_can_access_tag_page()
+    {
+        // Arrange
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $tag = Tag::factory()->create();
+        // $articles = Article::factory()->count(5)->create();
+        /* $article_tags = [];
+        foreach ($articles as $article) {
+            $article_tags[] = Article_tag::factory()->create([
+                'article_id' => $article->id,
+                'tag_id' => $tag->id,
+            ]);
+        } */
+        $users = User::factory()->count(5)->create();
+
+        // Act
+        $response = $this->get(route('sortArticles', ['id' => $tag->id]));
+
+        // Assert
+        $response->assertStatus(200);
+        $response->assertViewIs('conduit.home_tag');
+        $response->assertViewHas('articles');
+        $response->assertViewHas('article_tags');
+        $response->assertViewHas('tag', $tag);
+        $response->assertViewHas('tags', Tag::all());
+        $response->assertViewHas('users', $users);
+    }
+
+    public function test_unauthenticated_user_can_access_tag_page()
+    {
+        $tag = Tag::factory()->create();
+        $articles = Article::factory()->count(5)->create();
+        /* $article_tags = [];
+        foreach ($articles as $article) {
+            $article_tags[] = Article_tag::factory()->create([
+                'article_id' => $article->id,
+                'tag_id' => $tag->id,
+            ]);
+        } */
+        $users = User::factory()->count(5)->create();
+
+        $response = $this->get(route('sortArticles', ['id' => $tag->id]));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('conduit.Unauth_home_tag');
+        $response->assertViewHas('articles', $articles);
+        $response->assertViewHas('article_tags');
+        $response->assertViewHas('tag', $tag);
+        $response->assertViewHas('tags', Tag::all());
+        $response->assertViewHas('users', $users);
     }
 }
