@@ -19,8 +19,8 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => fake()->unique()->realTextBetween(5, 20),
-            "outline" => fake()->realTextBetween(10,100),
-            "content" => fake()->realTextBetween(30,200),
+            "outline" => fake()->realTextBetween(50,100),
+            "content" => fake()->realTextBetween(300,400),
             'user_id' => fake()->numberBetween(1, User::count()),
         ];
     }
