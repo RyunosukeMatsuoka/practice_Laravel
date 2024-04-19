@@ -67,4 +67,16 @@ class AuthControllerTest extends TestCase
         $response->assertSessionHasErrors('login_error');
         $this->assertGuest();
     }
+
+    public function test_user_can_logout_and_is_redirected_to_articles()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $response = $this->post(route('logout'));
+
+        $response->assertRedirect(route('articles'));
+
+        $this->assertGuest();
+    }
 }
