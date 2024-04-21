@@ -105,10 +105,10 @@ class ArticleController extends Controller
      * @param object $request
      * @return view
      */
-    public function exeUpdate(ArticleRequest $request)
+    public function exeUpdate(ArticleRequest $request, $id)
     {
-        $inputs = $request->all();
-        $article = Article::find($inputs['id']);
+        $inputs = $request->except('_token', '_method');
+        $article = Article::findOrFail($id);
 
         $article->fill($inputs);
         $tags = explode(',', $inputs['tags']);

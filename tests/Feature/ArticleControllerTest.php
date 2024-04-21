@@ -59,14 +59,13 @@ class ArticleControllerTest extends TestCase
         $article->tags()->attach($tag->id);
 
         $updatedArticleData = [
-            'id' => $article->id,
             'title' => 'Updated Test Article',
             'outline' => 'This is an updated test article',
             'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Updated.',
             'tags' => $tag->name,
         ];
 
-        $response = $this->actingAs($user)->post(route('update'), $updatedArticleData);
+        $response = $this->actingAs($user)->put(route('update', $article->id), $updatedArticleData);
 
         $response->assertRedirect(route('articles'));
         $this->assertDatabaseHas('articles', [
@@ -86,7 +85,7 @@ class ArticleControllerTest extends TestCase
         $tag = Tag::factory()->create();
         $article->tags()->attach($tag->id);
 
-        $response = $this->actingAs($user)->post(route('delete', $article->id));
+        $response = $this->actingAs($user)->delete(route('delete', $article->id));
 
         $response->assertRedirect(route('articles'));
         $this->assertDatabaseMissing('articles', [

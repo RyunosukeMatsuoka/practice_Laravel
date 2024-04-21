@@ -36,9 +36,9 @@ Route::middleware(['auth'])->group(function () {
     // 既存記事編集画面を表示
     Route::get('/editor/{id}', [ArticleController::class, 'showEditor'])->name('edit');
     // 既存記事を更新し保存
-    Route::post('/editor/update', [ArticleController::class, 'exeUpdate'])->name('update');
+    Route::put('/editor/update/{id}', [ArticleController::class, 'exeUpdate'])->name('update');
     // 既存記事を削除
-    Route::post('/article/delete/{id}', [ArticleController::class, 'exeDelete'])->name('delete');
+    Route::delete('/article/{id}', [ArticleController::class, 'exeDelete'])->name('delete');
     // ログアウト機能
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
