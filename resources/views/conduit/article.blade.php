@@ -3,6 +3,7 @@
 @section('content')
 <form method="POST" action="{{ route('delete', $article->id) }}">
 @csrf
+@method('DELETE')
 <div class="article-page">
     <div class="banner">
         <div class="container">

@@ -14,9 +14,9 @@
                 </ul>
             @endif
 
-            <form method="POST" action=" {{route('update')}} ">
+            <form method="POST" action=" {{route('update', $article->id)}} ">
             @csrf
-            <input type="hidden" name="id" value="{{ $article->id }}"/>
+            @method('PUT')
             <fieldset>
                 <fieldset class="form-group">
                     <input type="text" class="form-control form-control-lg" placeholder="Article Title" name="title" value="{{ $article->title }}"/>
